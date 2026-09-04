@@ -80,7 +80,7 @@ print(main("CC1=C2C(=O)OC3(CC)C(=O)OCC3C2=NC4=CC=CC=C14"))
 
 ## 说明与限制
 
-- 训练好的模型权重体积较大，未纳入本仓库；本地训练产物位于各方法 `artifacts/`（已被 .gitignore 排除）。已训练权重如需复用，请留意 GitHub Releases。
+- 训练好的模型权重体积较大，未随仓库发布；本地训练产物位于各方法 `artifacts/`（已被 .gitignore 排除）。按上文命令重训即可完整复现。
 - 训练标签的构建/清洗脚本见 `alldata/origindata/`，数据处理细节可完全复现。
 - 数据来源为公开数据库（ChEMBL / PubChem / MTEGDRP）；不含未发表实验数据。
 - 所有经典模型固定 `seed=42`，同一环境重复运行结果一致。

@@ -19,3 +19,6 @@ campt_activity_models/**/artifacts/
 # OS files
 Thumbs.db
 .DS_Store
+
+# Literature PDFs (copyrighted, keep out of the repo)
+*.pdf

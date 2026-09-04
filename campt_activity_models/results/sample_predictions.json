@@ -1,0 +1,77 @@
+[
+  {
+    "smiles": "COC(=O)CC(O)CP(=O)([O-])CCc1c(Cl)cc(Cl)cc1OCc1ccccc1.[Na+]",
+    "predictions": {
+      "01_scaffold_stacking_ensemble": {
+        "hepg2_pIC50": 6.471522362361055,
+        "hct116_pIC50": 5.171503489923794
+      },
+      "02_masked_multitask_mlp": {
+        "hepg2_pIC50": 6.741673946380615,
+        "hct116_pIC50": 7.038198471069336
+      },
+      "03_tanimoto_krr_conformal": {
+        "hepg2_pIC50": 6.240189552307129,
+        "hepg2_pi90": [
+          5.008421421051025,
+          7.471957683563232
+        ],
+        "hct116_pIC50": 5.181462287902832,
+        "hct116_pi90": [
+          3.787063717842102,
+          6.575860857963562
+        ]
+      }
+    }
+  },
+  {
+    "smiles": "CC(C)(C)C(=O)OCOC(=O)CC(O)CP(=O)(CCc1c(Cl)cc(Cl)cc1OCc1ccccc1)OCOC(=O)C(C)(C)C",
+    "predictions": {
+      "01_scaffold_stacking_ensemble": {
+        "hepg2_pIC50": 6.968682517141529,
+        "hct116_pIC50": 5.982664647598543
+      },
+      "02_masked_multitask_mlp": {
+        "hepg2_pIC50": 7.38324499130249,
+        "hct116_pIC50": 7.889155864715576
+      },
+      "03_tanimoto_krr_conformal": {
+        "hepg2_pIC50": 6.190995693206787,
+        "hepg2_pi90": [
+          4.959227561950684,
+          7.422763824462891
+        ],
+        "hct116_pIC50": 4.779347896575928,
+        "hct116_pi90": [
+          3.3849493265151978,
+          6.173746466636658
+        ]
+      }
+    }
+  },
+  {
+    "smiles": "CCN(CC#Cc1ccc(N=[N+]=[N-])cc1)Cc1cccc(OCc2cc(-c3ccsc3)cs2)c1",
+    "predictions": {
+      "01_scaffold_stacking_ensemble": {
+        "hepg2_pIC50": 6.024202938095627,
+        "hct116_pIC50": 6.050044316964505
+      },
+      "02_masked_multitask_mlp": {
+        "hepg2_pIC50": 6.615441799163818,
+        "hct116_pIC50": 7.039523124694824
+      },
+      "03_tanimoto_krr_conformal": {
+        "hepg2_pIC50": 5.281322002410889,
+        "hepg2_pi90": [
+          4.049553871154785,
+          6.513090133666992
+        ],
+        "hct116_pIC50": 4.235496520996094,
+        "hct116_pi90": [
+          2.8410979509353638,
+          5.629895091056824
+        ]
+      }
+    }
+  }
+]

@@ -1,0 +1,4 @@
+﻿method_id,method_name,mean_r2_across_tasks
+01_scaffold_stacking_ensemble,Scaffold Stacking Ensemble,0.3103960176103577
+03_tanimoto_krr_conformal,Tanimoto KRR + Conformal,0.1875103123682309
+02_masked_multitask_mlp,Masked Multi-task MLP,-0.25976255683814065

@@ -33,3 +33,7 @@ D:/kimi2.5program/JMC/.venv/Scripts/python.exe cpt_unimol_project/phase1_3d/gene
   - `alldata/hepg2_smiles_pIC50.csv`
   - `alldata/hct116_smiles_pIC50.csv`
 - 原始备份仍保留在：`alldata/origindata/`
+
+## 后续 Uni-Mol2 scaffold benchmark
+
+2026 年后续评估代码、Stage 7 单次初步改善与跨 seed 复验、Stage 12 最终结果和适用边界说明见 [`activity_benchmark/`](activity_benchmark/README.md)。该项目未证明 3D 表征稳定优于 2D 基线。

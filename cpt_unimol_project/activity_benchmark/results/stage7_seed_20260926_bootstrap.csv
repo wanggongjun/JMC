@@ -1,0 +1,3 @@
+task,candidate,baseline,n_records,scaffold_groups,delta_rmse_3d_aware_minus_2d,scaffold_bootstrap_ci95_low,scaffold_bootstrap_ci95_high,bootstrap_probability_3d_aware_better,bootstrap_replicates
+hct116_pIC50,validation_selected_3d_bearing_family,assay_centered_2d,1248,423,0.01767282861621433,0.002383248582836184,0.03163780106147232,0.011,4000
+hepg2_pIC50,validation_selected_3d_bearing_family,assay_centered_2d,1516,458,0.008690024655898299,-0.004300825536467337,0.020511804154319635,0.095,4000

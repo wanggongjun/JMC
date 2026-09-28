@@ -1,6 +1,8 @@
 # Uni-Mol2 Cell Activity Benchmark
 
-This folder contains the code and validation record for an assay-aware comparison of 2D and Uni-Mol2 3D representations on ChEMBL HepG2 and HCT116 cell-based IC50 data. It follows the earlier `cpt_unimol_project` work and keeps the later scaffold-held-out benchmark separate.
+This folder contains the code and validation record for an assay-aware comparison of 2D and Uni-Mol2 3D representations on ChEMBL HepG2 and HCT116 cell-based IC50 data. The headline Stage 7 and Stage 12 runs use the frozen Uni-Mol2 84M model (`model_name="unimolv2"`).
+
+Version note: this archive also retains earlier Uni-Mol v1 scripts and artifacts, especially under `src/` and in some early experiment scripts. Those v1 runs are historical and are not the Stage 7/12 results summarized below. The directory name `experiments/optimization_v1/` identifies an experiment series, not the Uni-Mol model version; each protocol names the actual model used.
 
 ## Result at a glance
 
@@ -39,13 +41,15 @@ These are retrospective internal ChEMBL scaffold-CV results, not prospective bio
 ## Data and model scope
 
 - The source cohort uses exact IC50 records with relation `=`, non-null pChEMBL, assay-preserving filtering, and a minimum of ten unique molecules per task-assay.
-- The aligned representation cohort contains 3,671 molecules. The ten-conformer ensemble has 30,989 retained conformers. Uni-Mol2 CLS vectors are 768-dimensional; Stage 12 appends six label-free ensemble statistics to arithmetic-mean and Boltzmann-mean CLS vectors.
+- The aligned representation cohort contains 3,671 molecules. The ten-conformer ensemble has 30,989 retained conformers. The Uni-Mol2 84M encoder produces 768-dimensional CLS vectors; Stage 12 appends six label-free ensemble statistics to arithmetic-mean and Boltzmann-mean CLS vectors.
 - Outer validation groups Bemis–Murcko scaffolds; inner model selection uses scaffold-grouped folds. Stage 11/12 use a shared scaffold assignment across both cell lines. Metrics are paired on exact source record IDs and uncertainty is bootstrapped over scaffolds.
 - Stage 7 selection is restricted to inner-fold OOF data. Stage 12 PCA, model choice, and nonzero fusion-weight selection are fold-local or inner-selected.
 
 ## Reproduce
 
-Install the declared Python environment with `uv sync`. The source scripts expect the curated ChEMBL activity table at `data/raw/origindata/chembl_hepg2_hct116_ic50_eq_calibrated.csv`, the aligned 2D feature archive at `results/2d_morgan_rdkit_features.npz`, and the corresponding 3D feature archives described in each protocol. Obtain Uni-Mol/Uni-Mol2 weights from their official distribution and place them under `models/` before representation extraction.
+Install the declared environment with `uv sync`. To regenerate the headline Uni-Mol2 representations, use `experiments/optimization_v1/encode_unimol2_ensemble.py` with the Uni-Mol2 84M checkpoint at `models/unimol2/modelzoo/84M/checkpoint.pt`; that script sets `model_name="unimolv2"` and records the official runtime source commit in its metadata. The Python dependency is `unimol-tools`; that package name does not mean the benchmark used a Uni-Mol v1 checkpoint. The older v1 scripts use separate `models/unimol/` inputs.
+
+The source scripts also expect the curated ChEMBL activity table at `data/raw/origindata/chembl_hepg2_hct116_ic50_eq_calibrated.csv`, the aligned 2D feature archive at `results/2d_morgan_rdkit_features.npz`, and the Stage 7/12 3D feature archives described in each protocol. The checkpoint, curated table, and generated feature arrays are not included in this repository, so a full rerun requires restoring those exact inputs first.
 
 The benchmark inputs, model checkpoints, raw API payloads, generated feature arrays, and row-level OOF predictions are intentionally not included in this code-focused folder. The committed aggregate tables are sufficient to inspect the reported metrics, but reproducing the full run requires restoring the exact input artifacts and environment described by the protocols. Local paths and credentials are not part of the release.
 

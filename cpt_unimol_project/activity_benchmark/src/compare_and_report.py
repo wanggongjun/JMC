@@ -67,7 +67,7 @@ def main() -> None:
 
     by_key = {(row.task, row.feature_set): row for row in summary.itertuples(index=False)}
     lines = [
-        "# HepG2/HCT116 双细胞系活性预测：Uni-Mol 3D 与 2D 基线",
+        "# HepG2/HCT116 双细胞系活性预测：Uni-Mol v1 3D 与 2D 基线",
         "",
         "## 数据",
         "",
@@ -107,7 +107,7 @@ def main() -> None:
         delta = three.rmse_mean - two.rmse_mean
         deltas[task] = delta
         comparison = "较高" if delta > 0 else "较低" if delta < 0 else "相同"
-        lines.append(f"- {labels[task]}：Uni-Mol 3D 的跨拆分平均 RMSE 比同样本 2D 基线{comparison} {abs(delta):.3f}。")
+        lines.append(f"- {labels[task]}：Uni-Mol v1 3D 的跨拆分平均 RMSE 比同样本 2D 基线{comparison} {abs(delta):.3f}。")
     lines += [
         "",
         "5 个 seed 反映对 scaffold 分组随机性的敏感程度，不是独立外部验证，也不是置信区间；测试集之间可能含有重复分子。UFF 未收敛构象仍有静态 3D 坐标，其影响没有单独消融。结果描述细胞系体外活性数据，不等于特定靶点结合或临床疗效。",

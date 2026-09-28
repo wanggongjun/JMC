@@ -1,4 +1,4 @@
-"""Nested scaffold-CV comparison of 2D, frozen Uni-Mol 3D, and fusion.
+"""Nested scaffold-CV comparison of 2D, frozen Uni-Mol v1 3D, and fusion.
 
 All hyperparameter selection is confined to inner scaffold folds. Outer folds
 produce paired out-of-fold predictions and are never used to select parameters.

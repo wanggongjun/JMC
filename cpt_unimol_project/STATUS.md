@@ -1,4 +1,6 @@
-# 执行状态（2026-03-04）
+# 历史执行状态快照（2026-03-04）
+
+> 本页只记录旧四阶段项目截至 2026-03-04 的状态，不代表当前项目状态。这里的 `phase2_unimol` 是 Uni-Mol v1（`unimolv1`）；当前 Uni-Mol2 84M 活性基准及完整结果见 [`activity_benchmark/README.md`](activity_benchmark/README.md)。
 
 ## ✅ Phase 1：数据深度加工（3D 化）
 
@@ -12,11 +14,11 @@
 - 成功构象：3732
 - 失败：17
 
-## ✅ Phase 2：Uni-Mol 多任务骨架
+## ✅ Phase 2：Uni-Mol v1 多任务骨架
 
 已完成：
 - 脚本：`phase2_unimol/train_unimol_multitask.py`, `phase2_unimol/predict_dual_activity.py`
-- 已下载 Uni-Mol 预训练权重并完成 smoke 训练（128 分子，1 epoch）
+- 使用 Uni-Mol v1 预训练权重完成 smoke 训练（128 分子，1 epoch；不是完整验证）
 - 产物：`phase2_unimol/artifacts_unimol/`（含 5-fold 模型权重）
 
 说明：

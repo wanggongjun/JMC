@@ -1,3 +1,5 @@
 # Model Weights
 
-Pretrained Uni-Mol/Uni-Mol2 checkpoints are not redistributed here. Obtain weights from the official project distribution, record their version and checksum, and place local checkpoints under this directory before extraction or fine-tuning.
+The Stage 7/12 benchmark uses the pretrained Uni-Mol2 84M checkpoint selected by `model_name="unimolv2"`. Place it at `models/unimol2/modelzoo/84M/checkpoint.pt` before regenerating representations. Record the checkpoint checksum and runtime source commit with the run.
+
+Weights are not redistributed here. The separate `models/unimol/` path belongs to the archived Uni-Mol v1 experiments; do not use it to reproduce the headline Uni-Mol2 results.

@@ -1,5 +1,7 @@
 # Aggregate Results Summary
 
+The Stage 7 and Stage 12 3D representations in this report use frozen Uni-Mol2 84M (`unimolv2`) conformer embeddings. Earlier Uni-Mol v1 experiments are outside these aggregate comparisons.
+
 ## Stage 7: validation-selected 3D-bearing model family
 
 The protocol selected between two 3D-bearing candidate families using only inner-fold OOF RMSE. The comparison below uses the paired assay-centered 2D baseline on two fresh scaffold manifests.

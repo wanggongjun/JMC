@@ -1,4 +1,4 @@
-"""Mean-pool frozen Uni-Mol CLS vectors over a generated conformer ensemble."""
+"""Mean-pool frozen Uni-Mol v1 CLS vectors over a generated conformer ensemble."""
 from __future__ import annotations
 
 import argparse

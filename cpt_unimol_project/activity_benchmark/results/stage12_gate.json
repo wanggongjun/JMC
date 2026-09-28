@@ -1,0 +1,8 @@
+{
+  "status": "fail",
+  "rule": "Stage 12 2D+Uni-Mol2 distribution model must beat both matched nested 2D and established independent 2D on both cell lines and both fresh scaffold seeds",
+  "all_eight_point_estimate_comparisons_pass": false,
+  "all_bootstrap_intervals_exclude_zero": false,
+  "n_bootstrap": 5000,
+  "scope": "known-assay internal ChEMBL scaffold CV; no prospective biological validation"
+}

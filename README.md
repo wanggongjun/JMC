@@ -1,86 +1,23 @@
-# CPT 生物活性预测项目
+# Molecular Activity Prediction Projects
 
-给定喜树碱（Camptothecin, CPT）衍生物的 SMILES，预测其在 **HepG2** 与 **HCT116** 两个细胞系上的 pIC50。
+This repository contains two related but separate projects: classic models for camptothecin derivatives and a later ChEMBL cell-line benchmark using Uni-Mol2. Their datasets and results should not be mixed.
 
-项目包含两条技术路线：
+## Current 3D benchmark: Uni-Mol2 84M
 
-| 目录 | 路线 | 状态 |
-| --- | --- | --- |
-| `campt_activity_models/` | 经典机器学习三套模型（主成果，可完整复现） | ✅ 已训练并评估 |
-| `cpt_unimol_project/` | Uni-Mol 3D 深度学习多任务管线 | 开发中（见其 README） |
+The maintained comparison is in [`cpt_unimol_project/activity_benchmark/`](cpt_unimol_project/activity_benchmark/README.md). It uses frozen `unimolv2` 84M conformer embeddings and scaffold-grouped evaluation against matched 2D baselines for ChEMBL HepG2 and HCT116 IC50 records.
 
-## 方法（campt_activity_models）
+The aligned cohort contains 3,671 molecules and 30,989 conformers. In one exploratory Stage 7 split (seed `20260927`), RMSE was lower than the paired 2D baseline by 0.00825 for HepG2 and 0.00569 for HCT116. The other prespecified seed reversed direction, and the Stage 12 replication gate did not pass. The evidence does not establish a stable 3D advantage; the full metrics and limitations are documented in the benchmark README.
 
-1. `01_scaffold_stacking_ensemble`：骨架（scaffold）划分 + RDKit 指纹/理化描述符 + Stacking 集成回归（RF/ET/GBR + Ridge）
-2. `02_masked_multitask_mlp`：共享编码器 + HepG2/HCT116 双任务头 + 缺失标签掩码（PyTorch MLP）
-3. `03_tanimoto_krr_conformal`：Tanimoto 核岭回归 + conformal 置信区间
+## Classic camptothecin models
 
-统一按 scaffold split（seed=42）评估：80% 训练 / 10% 验证 / 10% 测试。
+[`campt_activity_models/`](campt_activity_models/README.md) contains three scaffold-split approaches for predicting pIC50 from camptothecin-derivative SMILES: scaffold stacking, a masked multitask MLP, and Tanimoto kernel ridge regression. Its dataset and metrics are separate from the broader ChEMBL benchmark.
 
-## 测试集结果
+## Model-version map
 
-### HepG2
+- `cpt_unimol_project/activity_benchmark/`: the headline Stage 7 and Stage 12 comparisons use Uni-Mol2 84M (`model_name="unimolv2"`).
+- `cpt_unimol_project/phase2_unimol/`: an earlier Uni-Mol v1 pipeline (`model_name="unimolv1"`), retained as historical work. Its runs are not the Uni-Mol2 benchmark results.
+- `cpt_unimol_project/activity_benchmark/src/` and some early experiment scripts also contain Uni-Mol v1 exploratory code. The Stage 7/12 protocols identify the Uni-Mol2 inputs and procedures used for their reported metrics.
 
-| 方法 | RMSE | MAE | R² | Pearson | Spearman |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| Scaffold Stacking Ensemble | 0.746 | 0.549 | 0.327 | 0.584 | 0.594 |
-| Masked Multi-task MLP | 0.955 | 0.677 | -0.103 | 0.500 | 0.485 |
-| Tanimoto KRR + Conformal | 0.755 | 0.532 | 0.311 | 0.564 | 0.620 |
+## Data and reproduction
 
-### HCT116
-
-| 方法 | RMSE | MAE | R² | Pearson | Spearman |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| Scaffold Stacking Ensemble | 0.904 | 0.666 | 0.294 | 0.568 | 0.597 |
-| Masked Multi-task MLP | 1.280 | 0.898 | -0.416 | 0.355 | 0.373 |
-| Tanimoto KRR + Conformal | 1.040 | 0.744 | 0.064 | 0.409 | 0.457 |
-
-完整逐条指标见 `campt_activity_models/results/model_comparison.csv`。
-
-## 快速开始
-
-```bash
-python -m venv .venv
-# Windows: .venv\Scripts\activate     macOS/Linux: source .venv/bin/activate
-pip install -r requirements.txt
-
-# 训练三套经典模型（结果写入各方法 artifacts/ 目录）
-python campt_activity_models/01_scaffold_stacking_ensemble/train.py
-python campt_activity_models/02_masked_multitask_mlp/train.py
-python campt_activity_models/03_tanimoto_krr_conformal/train.py
-
-# 用所有方法预测一个新 SMILES
-python campt_activity_models/predict_all_methods.py
-```
-
-预测接口示例：
-
-```python
-import sys
-sys.path.append("campt_activity_models")
-from predict_all_methods import main
-
-print(main("CC1=C2C(=O)OC3(CC)C(=O)OCC3C2=NC4=CC=CC=C14"))
-```
-
-## 目录结构
-
-```text
-.
-├── campt_activity_models/   # 经典机器学习主成果（代码 + 评估结果）
-│   ├── 01_scaffold_stacking_ensemble/
-│   ├── 02_masked_multitask_mlp/
-│   ├── 03_tanimoto_krr_conformal/
-│   ├── common/              # 公共数据处理/评估工具
-│   └── results/             # 模型对比汇总
-├── cpt_unimol_project/      # Uni-Mol 深度学习管线（见 README_NEW_MACHINE.md）
-├── alldata/                 # 训练标签（来自 ChEMBL/PubChem 公开数据）
-└── PANCANCER_ANOVA_*.csv    # 原始药敏汇总（MTEGDRP 数据整理）
-```
-
-## 说明与限制
-
-- 训练好的模型权重体积较大，未随仓库发布；本地训练产物位于各方法 `artifacts/`（已被 .gitignore 排除）。按上文命令重训即可完整复现。
-- 训练标签的构建/清洗脚本见 `alldata/origindata/`，数据处理细节可完全复现。
-- 数据来源为公开数据库（ChEMBL / PubChem / MTEGDRP）；不含未发表实验数据。
-- 所有经典模型固定 `seed=42`，同一环境重复运行结果一致。
+The benchmark folder publishes source code, protocols, and aggregate metrics. It does not include the curated ChEMBL input table, pretrained weights, generated feature arrays, or row-level predictions. See its [data, weight, and reproduction notes](cpt_unimol_project/activity_benchmark/README.md#reproduce) before attempting a full rerun. Classic-model setup instructions are in the `campt_activity_models` README.

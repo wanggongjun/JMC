@@ -1,35 +1,20 @@
-# CPT 活性预测项目（四阶段执行）
+# CPT Activity Project Archive and Uni-Mol2 Benchmark
 
-迁移到新电脑或交接给 AI 时，请先看：`README_NEW_MACHINE.md`。
+This folder contains an earlier CPT-focused modeling pipeline and the newer, separate ChEMBL cell-activity benchmark. The repository-level [`README.md`](../README.md) is the landing page; the current benchmark details are in [`activity_benchmark/README.md`](activity_benchmark/README.md).
 
-本目录是独立于其他实验的全新项目实现，按你给出的路线图组织：
+## Current benchmark
 
-1. `phase1_3d`：将 2D SMILES 转成 3D 构象（RDKit ETKDG）
-2. `phase2_unimol`：Uni-Mol 风格多任务建模（HepG2/HCT116 双头）
-3. `phase3_transfer`：TopoI 迁移学习 + CPT 极小样本校验
-4. `phase4_generator_guidance`：面向分子生成器的梯度指导接口
+`activity_benchmark/` compares frozen Uni-Mol2 84M conformer representations with matched 2D models on HepG2 and HCT116 ChEMBL IC50 records. Its Stage 7/12 methods, aggregate metrics, and validation limits are documented there. The latest evaluation did not establish a reproducible 3D advantage.
 
-## 当前已实现
+## Earlier CPT pipeline
 
-- Phase 1 全流程可运行：
-  - `phase1_3d/build_master_table.py`
-  - `phase1_3d/generate_conformers.py`
-- 运行后输出：
-  - `data/master_multitask.csv`
-  - `data/conformers_etkdg.sdf`
-  - `data/conformer_index.csv`
-  - `data/conformer_failures.csv`
+The phase folders below preserve the original four-stage project structure. In particular, `phase2_unimol/` uses Uni-Mol v1 (`model_name="unimolv1"`); it is not the Uni-Mol2 implementation or the source of the current benchmark metrics. The dated setup and status notes for that older pipeline are [`README_NEW_MACHINE.md`](README_NEW_MACHINE.md) and [`STATUS.md`](STATUS.md).
 
-## 一键运行第一阶段
+The original phases are:
 
-```powershell
-D:/kimi2.5program/JMC/.venv/Scripts/python.exe cpt_unimol_project/phase1_3d/build_master_table.py
-D:/kimi2.5program/JMC/.venv/Scripts/python.exe cpt_unimol_project/phase1_3d/generate_conformers.py
-```
+1. `phase1_3d`: RDKit ETKDG conformer generation.
+2. `phase2_unimol`: the earlier Uni-Mol v1 multitask pipeline.
+3. `phase3_transfer`: TopoI transfer-data preparation and CPT small-sample work.
+4. `phase4_generator_guidance`: an initial scoring interface for generated molecules.
 
-## 数据来源
-
-- 输入训练标签：
-  - `alldata/hepg2_smiles_pIC50.csv`
-  - `alldata/hct116_smiles_pIC50.csv`
-- 原始备份仍保留在：`alldata/origindata/`
+These directories contain separate historical work; consult each phase's scripts and dated status before treating it as a current, validated result.

@@ -1,12 +1,14 @@
-# CPT Uni-Mol: New Machine / AI Handover Guide
+# Legacy CPT Uni-Mol v1 Pipeline: Migration Guide
 
-This guide is the "pitfall-free" path to run the current stable version on a new machine.
+> This guide documents the earlier `phase2_unimol` pipeline, which loads Uni-Mol v1 (`model_name="unimolv1"`). It is not the Uni-Mol2 benchmark. For the current Uni-Mol2 84M evaluation and its results, start at [`activity_benchmark/README.md`](activity_benchmark/README.md).
+
+The commands below reproduce the legacy setup documented for the 2026-03 snapshot; they do not reproduce the newer Uni-Mol2 Stage 7/12 benchmark.
 
 ## What To Keep
 
-- Current full version (recommended run target):
+- Historical Uni-Mol v1 run target:
   - `cpt_unimol_project/phase2_unimol/artifacts_unimol_opt_cached_fast_b128_r3/`
-- Original baseline version (kept for reference):
+- Earlier Uni-Mol v1 baseline (kept for reference):
   - `cpt_unimol_project/phase2_unimol/artifacts_unimol/`
 
 Other intermediate debug/tuning outputs were intentionally cleaned.

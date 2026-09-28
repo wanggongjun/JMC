@@ -1,0 +1,18 @@
+.venv/
+__pycache__/
+*.py[cod]
+
+# Local source data and generated model artifacts
+data/raw/
+data/processed/
+models/*
+!models/README.md
+results/*.npz
+results/*.pkl
+results/*.joblib
+results/*.pt
+results/*oof*.csv
+results/*predictions*.csv
+logs/
+*.log
+.DS_Store
